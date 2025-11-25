@@ -7,7 +7,7 @@ import { Progress } from '@/components/ui/progress'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts'
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { Wine, Users, ShoppingCart, AlertTriangle, TrendingUp, Package, Bell, User, Star } from 'lucide-react'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
@@ -50,8 +50,6 @@ interface Produto {
   pais: string
   safra: number
   tipo_uva: string
-  estoque: number
-  preco: number
   score?: number
   motivo?: string
 }
@@ -73,9 +71,6 @@ interface ClienteDetalhes extends Cliente {
     produto_nome: string
   }>
 }
-
-const COLORS = ['#ef4444', '#f59e0b', '#22c55e']
-const SEGMENT_COLORS = ['#8b5cf6', '#3b82f6', '#10b981']
 
 function App() {
   const [dashboard, setDashboard] = useState<DashboardData | null>(null)
@@ -422,12 +417,9 @@ function App() {
                                         <div className="space-y-2">
                                           {selectedCliente.recomendacoes?.slice(0, 3).map((rec) => (
                                             <div key={rec.produto_id} className="bg-gray-50 p-3 rounded-lg">
-                                              <div className="flex justify-between items-start">
-                                                <div>
-                                                  <p className="font-medium">{rec.nome}</p>
-                                                  <p className="text-sm text-gray-500">{rec.tipo_uva} - {rec.pais} ({rec.safra})</p>
-                                                </div>
-                                                <p className="font-semibold text-purple-600">R$ {rec.preco.toFixed(2)}</p>
+                                              <div>
+                                                <p className="font-medium">{rec.nome}</p>
+                                                <p className="text-sm text-gray-500">{rec.tipo_uva} - {rec.pais} ({rec.safra})</p>
                                               </div>
                                               <p className="text-xs text-gray-400 mt-1">{rec.motivo}</p>
                                             </div>
@@ -554,12 +546,12 @@ function App() {
                                     </h4>
                                     <div className="space-y-2">
                                       {selectedCliente.recomendacoes?.map((rec) => (
-                                        <div key={rec.produto_id} className="bg-gray-50 p-3 rounded-lg flex justify-between items-center">
+                                        <div key={rec.produto_id} className="bg-gray-50 p-3 rounded-lg">
                                           <div>
                                             <p className="font-medium">{rec.nome}</p>
                                             <p className="text-sm text-gray-500">{rec.tipo_uva} - {rec.pais} ({rec.safra})</p>
                                           </div>
-                                          <p className="font-semibold text-purple-600">R$ {rec.preco.toFixed(2)}</p>
+                                          <p className="text-xs text-gray-400 mt-1">{rec.motivo}</p>
                                         </div>
                                       ))}
                                     </div>
@@ -598,7 +590,10 @@ function App() {
                               <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5" />
                               <div>
                                 <Badge variant="destructive" className="mb-1">
-                                  {alerta.tipo === 'risco_churn' ? 'Risco de Churn' : 'Estoque Baixo'}
+                                  {alerta.tipo === 'risco_churn' ? 'Risco de Churn' : 
+                                   alerta.tipo === 'cliente_inativo' ? 'Cliente Inativo' :
+                                   alerta.tipo === 'fidelidade_uva' ? 'Fidelidade' :
+                                   alerta.tipo === 'demanda_crescente' ? 'Demanda Crescente' : alerta.tipo}
                                 </Badge>
                                 <p className="text-sm">{alerta.mensagem}</p>
                               </div>
@@ -629,7 +624,10 @@ function App() {
                               <Bell className="w-4 h-4 text-yellow-500 mt-0.5" />
                               <div>
                                 <Badge className="bg-yellow-500 mb-1">
-                                  {alerta.tipo === 'risco_churn' ? 'Risco de Churn' : 'Estoque Baixo'}
+                                  {alerta.tipo === 'risco_churn' ? 'Risco de Churn' : 
+                                   alerta.tipo === 'cliente_inativo' ? 'Cliente Inativo' :
+                                   alerta.tipo === 'fidelidade_uva' ? 'Fidelidade' :
+                                   alerta.tipo === 'demanda_crescente' ? 'Demanda Crescente' : alerta.tipo}
                                 </Badge>
                                 <p className="text-sm">{alerta.mensagem}</p>
                               </div>
@@ -669,9 +667,9 @@ function App() {
                   </div>
                   <div className="bg-purple-50 p-4 rounded-lg text-center">
                     <div className="text-3xl font-bold text-purple-600">
-                      {alertas.filter(a => a.tipo === 'estoque_baixo').length}
+                      {alertas.filter(a => a.tipo === 'cliente_inativo').length}
                     </div>
-                    <p className="text-sm text-purple-600">Estoque Baixo</p>
+                    <p className="text-sm text-purple-600">Clientes Inativos</p>
                   </div>
                 </div>
               </CardContent>
