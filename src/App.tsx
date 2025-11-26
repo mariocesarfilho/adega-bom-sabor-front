@@ -138,7 +138,7 @@ function App() {
 
       <footer className="bg-slate-900 border-t border-slate-700 py-4 mt-8">
         <div className="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
-          Adega Bom Sabor - Sistema de Apoio a Decisao | Desenvolvido com IA
+          Adega Bom Sabor - Sistema de Apoio a Decisão
         </div>
       </footer>
     </div>
