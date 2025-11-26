@@ -123,7 +123,7 @@ export function SegmentationTab({ clientes, dashboard }: SegmentationTabProps) {
                         <div className="flex items-center gap-2">
                           <Progress 
                             value={cliente.pontuacao_engajamento * 10} 
-                            className="w-20 bg-slate-700" 
+                            className="w-20 bg-sky-50" 
                           />
                           <span className="text-sm text-slate-300">
                             {cliente.pontuacao_engajamento.toFixed(1)}
@@ -134,10 +134,10 @@ export function SegmentationTab({ clientes, dashboard }: SegmentationTabProps) {
                         <Button 
                           variant="outline" 
                           size="sm"
-                          className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-slate-100"
+                          className="border-slate-600 text-slate-700 hover:bg-slate-700 hover:text-slate-100"
                           onClick={() => handleRecomendacoes(cliente.cliente_id)}
                         >
-                          Recomendacoes
+                          Recomendações
                         </Button>
                       </TableCell>
                     </TableRow>

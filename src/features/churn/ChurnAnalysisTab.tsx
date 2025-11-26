@@ -64,7 +64,7 @@ export function ChurnAnalysisTab({ clientes }: ChurnAnalysisTabProps) {
                       <div className="flex items-center gap-2">
                         <Progress 
                           value={cliente.pontuacao_engajamento * 10} 
-                          className="w-20 bg-slate-700" 
+                          className="w-20 bg-sky-50" 
                         />
                         <span className="text-sm text-slate-300">
                           {cliente.pontuacao_engajamento.toFixed(1)}
@@ -84,7 +84,7 @@ export function ChurnAnalysisTab({ clientes }: ChurnAnalysisTabProps) {
                       <Button 
                         variant="outline" 
                         size="sm"
-                        className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-slate-100"
+                        className="border-slate-600 text-slate-700 hover:bg-slate-700 hover:text-slate-100"
                         onClick={() => handleVerDetalhes(cliente.cliente_id)}
                       >
                         Ver Detalhes
