@@ -105,7 +105,7 @@ export function ClienteDetailsDialog({
                   <p className="text-sm text-slate-400">Risco de Churn</p>
                   {getChurnBadge(details.churn_probability)}
                 </div>
-                <div>
+                {/* <div>
                   <p className="text-sm text-slate-400">Total Gasto</p>
                   <p className="font-medium text-slate-100">
                     R$ {details.total_gasto?.toLocaleString('pt-BR') || '0'}
@@ -114,7 +114,7 @@ export function ClienteDetailsDialog({
                 <div>
                   <p className="text-sm text-slate-400">Total de Compras</p>
                   <p className="font-medium text-slate-100">{details.total_compras || 0}</p>
-                </div>
+                </div> */}
               </div>
             )}
 
